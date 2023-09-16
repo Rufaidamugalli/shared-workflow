@@ -30,7 +30,7 @@ jobs:
       #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     aws-region: eu-central-1    
       - name: Run Infracost action
-        uses: Liquid-Reply/demo-actions/infracost@main
+        uses: Rufaidamugalli/demo-actions/infracost@main
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
