@@ -1,0 +1,36 @@
+on:
+  workflow_call:
+    secrets:
+      infracost_api_key:
+        required: true
+env:
+      working-directory: /infracost_demo
+      AWS_REGION: eu-central-1
+      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}        
+jobs:
+  infracost:
+    runs-on: ubuntu-latest
+    permissions:
+     contents: read
+      # Required to post comments
+     pull-requests: write
+    env:
+       DEPLOYMENT_ENV: "dev"
+
+    name: Run Infracost
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      # - name: AWS login
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: eu-central-1    
+      - name: Run Infracost action
+        uses: Liquid-Reply/demo-actions/infracost@main
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
